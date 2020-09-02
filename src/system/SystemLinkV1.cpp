@@ -46,7 +46,7 @@
 #define BLE_RESET_PIN 4u
 
 // PBGUARD
-#define PBGUARD_IO 27u
+#define PBGUARD_IO 26u
 
 enum ledcChannels
 {
