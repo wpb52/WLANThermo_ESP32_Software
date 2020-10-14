@@ -25,6 +25,10 @@
 #define UPDATE_ALL 0xFFFFFFFFu
 #define TFT_TOUCH_CALIBRATION_ARRAY_SIZE 5u
 
+#define LED_FREQUENCY 5000
+#define LED_RESOLUTION 8u
+#define LED_IO 26u
+
 LV_FONT_DECLARE(Font_Gothic_A1_Medium_h16);
 LV_FONT_DECLARE(Font_Gothic_A1_Medium_h21);
 LV_FONT_DECLARE(Font_Nano_Temp_Limit_h16);
@@ -67,6 +71,12 @@ boolean DisplayTft::initDisplay()
     Serial.printf("DisplayTft::init: display disabled\n");
     return true;
   }
+
+  // Init Backlight LED
+  this->ledChannel = 6;  // @Martin: Pitmaster1 = 0, Pitmaster2 = 1, Buzzer = 3, was ist mit 2? Ist der noch frei?
+  ledcSetup(this->ledChannel, LED_FREQUENCY, LED_RESOLUTION);
+  ledcAttachPin(LED_IO, this->ledChannel);
+  ledcWrite(ledChannel, 255);
 
   // configure PIN mode
   pinMode(TFT_CS, OUTPUT);

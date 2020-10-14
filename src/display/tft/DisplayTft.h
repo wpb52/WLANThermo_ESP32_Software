@@ -64,6 +64,7 @@ public:
 private:
   boolean initDisplay();
   static void task(void *parameter);
+  uint8_t ledChannel;
 
   static void temperatureUpdateCb(uint8_t index, TemperatureBase *temperature, boolean settingsChanged, void *userData);
 
