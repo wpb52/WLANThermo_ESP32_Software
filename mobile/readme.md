@@ -5,6 +5,11 @@ npm install -g cordova
 ```
 see more in https://cordova.apache.org/
 
+install zeroconf plugin by
+```
+cordova plugin add cordova-plugin-zeroconf
+```
+
 ## Run app
 ```
 yarn a
