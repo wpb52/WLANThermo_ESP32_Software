@@ -17,19 +17,32 @@
  * under the License.
  */
 
+ipAddress = "";
+
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
-
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    document.getElementById('deviceready').classList.add('ready');
-
-    cordova.plugins.notification.local.schedule({
-        title: 'My first notification',
-        text: 'Thats pretty easy...',
-        foreground: true
-    });
+    var zeroconf = cordova.plugins.zeroconf;
+    
+    zeroconf.registerAddressFamily = 'ipv4';
+    zeroconf.watchAddressFamily = 'ipv4';
+    
+    zeroconf.watch('_wlanthermo._tcp.', 'local.', function(result) {
+    var action = result.action;
+    var service = result.service;
+    if (action == 'added') {
+        console.log('service added', service);
+    } else if (action == 'resolved') {
+        console.log('service resolved', service);
+        console.log('device name: ' + service.txtRecord.device);
+        console.log('device ip: ' + service.ipv4Addresses[0]);
+        ipAddress = service.ipv4Addresses[0];
+        window.location.href='device.html?ip=' + ipAddress;
+    } else {
+        console.log('service removed', service);
+    }
+});
 }
