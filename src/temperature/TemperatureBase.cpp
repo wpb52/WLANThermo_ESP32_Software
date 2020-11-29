@@ -390,49 +390,47 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     break;
-  case SensorType::FantastNeu: // Fantast-Neu
-    Rn = 220;
-    a = 0.00334519;
-    b = 0.000243825;
-    c = 0.00000261726;
+  case SensorType::wpb1000k1: // wpb1000k1	 
+    Rn = 1.00000000E+03;
+    a = 3.35357526E-03;	 
+    b = 2.25076982E-04;
+    c = 2.73856371E-06
     break;
-  case SensorType::Fantast: // Fantast
-    Rn = 50.08;
-    a = 3.3558340e-03;
-    b = 2.5698192e-04;
-    c = 1.6391056e-06;
+  case SensorType::wpb1000k2: // wpb1000k2	 
+    Rn = 1.00000000E+03;	 
+    a = 3.35458439E-03;	 
+    b = 2.26028596E-04;	 
+    c = 2.93121094E-06;
     break;
-  case SensorType::iGrill2: // iGrill2
-    Rn = 99.61;
-    a = 3.3562424e-03;
-    b = 2.5319218e-04;
-    c = 2.7988397e-06;
+  case SensorType::wpb1000k3: // wpb1000k3	 
+    Rn = 	1.00000000E+03;	 
+    a = 	3.35534794E-03;	 
+    b = 	2.25498257E-04;	 
+    c = 	2.78667544E-06;
     break;
-  case SensorType::ET73: // ET-73
-    Rn = 200;
-    a = 0.00335672;
-    b = 0.000291888;
-    c = 0.00000439054;
+  case SensorType::wpb1000k4: // wpb1000k4	 
+    Rn = 	1.00000000E+03;	 
+    a = 	3.35404928E-03;	 
+    b = 	2.26045590E-04;	 
+    c = 	2.88726657E-06;
     break;
-  case SensorType::PERFEKTION: // PERFEKTION
-    Rn = 200.1;
-    a = 3.3561990e-03;
-    b = 2.4352911e-04;
-    c = 3.4519389e-06;
+  case SensorType::wpb1000k5: // wpb1000k5	 
+    Rn = 	1.00000000E+03;	 
+    a = 	3.35472823E-03;	 
+    b = 	2.25778383E-04;	 
+    c = 	2.82085116E-06;
     break;
-  case SensorType::_50K: // 50K
-    Rn = 50.0;
-    a = 3.35419603e-03;
-    b = 2.41943663e-04;
-    c = 2.77057578e-06;
+  case SensorType::wpb1000k6: // wpb1000k6	 
+    Rn = 	1.00000000E+03;	 
+    a = 	3.35364502E-03;	 
+    b = 	2.24978671E-04;	 
+    c = 	2.73823940E-06;
     break;
-  case SensorType::INKBIRD: // INKBIRD
-    Rn = 48.59;
-    a = 3.3552456e-03;
-    b = 2.5608666e-04;
-    c = 1.9317204e-06;
-    //Rn = 48.6; a = 3.35442124e-03; b = 2.56134397e-04; c = 1.9536396e-06;
-    //Rn = 48.94; a = 3.35438959e-03; b = 2.55353377e-04; c = 1.86726509e-06;
+  case SensorType::wpb1000k0: // wpb1000k0	 Mittelwert
+    Rn = 	1.00000000E+03;	 
+    a = 	3.35425697E-03;	 
+    b = 	2.25568425E-04;	 
+    c = 	2.82576794E-06;
     break;
   case SensorType::NTC100K6A1B: // NTC 100K6A1B (lila Kopf)
     Rn = 100;
