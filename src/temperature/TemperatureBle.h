@@ -19,7 +19,7 @@
 ****************************************************/
 #pragma once
 
-#include "/TemperatureBase.h"
+#include "../TemperatureBase.h"
 
 class TemperatureBle : public TemperatureBase
 {

@@ -18,9 +18,9 @@
     
 ****************************************************/
 
-#include "/TemperatureBase.h"
-#include "/TemperatureGrp.h"
-#include "src/Settings.h"
+#include "TemperatureBase.h"
+#include "TemperatureGrp.h"
+#include "Settings.h"
 
 #define LOWEST_VALUE -31
 #define HIGHEST_VALUE 999

@@ -19,7 +19,7 @@
 ****************************************************/
 #pragma once
 
-#include "Arduino.h"
+#include "../../../Arduino-master/cores/esp8266/Arduino.h"
 #include "MedianFilterLib.h"
 #include "TemperatureSensors.h"
 

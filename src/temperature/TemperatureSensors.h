@@ -19,7 +19,7 @@
 ****************************************************/
 #pragma once
 
-#include "\\GitHub\Arduino-master\cores\esp8266\Arduino.h"
+#include "../../../Arduino-master/cores/esp8266/Arduino.h"
 
 #define NUM_OF_TYPES 18u
 
