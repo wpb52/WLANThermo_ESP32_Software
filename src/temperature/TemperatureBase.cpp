@@ -403,34 +403,34 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     c = 2.93121094E-06;
     break;
   case SensorType::wpb1000k3: // wpb1000k3	 
-    Rn = 	1.00000000E+03;	 
-    a = 	3.35534794E-03;	 
-    b = 	2.25498257E-04;	 
-    c = 	2.78667544E-06;
+    Rn = 1.00000000E+03;	 
+    a = 3.35534794E-03;	 
+    b = 2.25498257E-04;	 
+    c = 2.78667544E-06;
     break;
   case SensorType::wpb1000k4: // wpb1000k4	 
     Rn = 	1.00000000E+03;	 
-    a = 	3.35404928E-03;	 
-    b = 	2.26045590E-04;	 
-    c = 	2.88726657E-06;
+    a = 3.35404928E-03;	 
+    b = 2.26045590E-04;	 
+    c = 2.88726657E-06;
     break;
   case SensorType::wpb1000k5: // wpb1000k5	 
     Rn = 	1.00000000E+03;	 
-    a = 	3.35472823E-03;	 
-    b = 	2.25778383E-04;	 
-    c = 	2.82085116E-06;
+    a = 3.35472823E-03;	 
+    b = 2.25778383E-04;	 
+    c = 2.82085116E-06;
     break;
   case SensorType::wpb1000k6: // wpb1000k6	 
     Rn = 	1.00000000E+03;	 
-    a = 	3.35364502E-03;	 
-    b = 	2.24978671E-04;	 
-    c = 	2.73823940E-06;
+    a = 3.35364502E-03;	 
+    b = 2.24978671E-04;	 
+    c = 2.73823940E-06;
     break;
   case SensorType::wpb1000k0: // wpb1000k0	 Mittelwert
     Rn = 	1.00000000E+03;	 
-    a = 	3.35425697E-03;	 
-    b = 	2.25568425E-04;	 
-    c = 	2.82576794E-06;
+    a = 3.35425697E-03;	 
+    b = 2.25568425E-04;	 
+    c = 2.82576794E-06;
     break;
   case SensorType::NTC100K6A1B: // NTC 100K6A1B (lila Kopf)
     Rn = 100;
