@@ -394,7 +394,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     Rn = 1.00000000E+03;
     a = 3.35357526E-03;	 
     b = 2.25076982E-04;
-    c = 2.73856371E-06
+    c = 2.73856371E-06;
     break;
   case SensorType::wpb1000k2: // wpb1000k2	 
     Rn = 1.00000000E+03;	 
