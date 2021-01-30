@@ -374,14 +374,14 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
 {
 
   float Rmess = 47;
-  float a, b, c, Rn;
+  float a, b, c, Rn, mOffset;
 
   // kleine Abweichungen an GND verursachen Messfehler von wenigen Digitalwerten
   // daher werden nur Messungen mit einem Digitalwert von mind. 10 ausgewertet,
   // das entspricht 5 mV
   if (rawValue < 10)
     return INACTIVEVALUE; // Kanal ist mit GND gebrückt
-
+  // wpb: mOffset eingeführt, um geringe Eintauchtiefe des Sensors auszugleichen
   switch (type)
   {
   case SensorType::Maverick: // Maverik
@@ -389,78 +389,91 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
+    mOffset = 0.0;
     break;
-  case SensorType::wpb1000k1: // wpb1000k1	 
-    Rn = 1002.60k;
-    a= 3.3540674e-03;
-    b= 2.2503771e-04;  
-    c= 2.7318204e-06;
+  case SensorType::wpb1M31:   // 
+    Rn = 998.200;
+    a= 3.3544077E-03;
+    b= 2.2489572E-04;  
+    c= 2.6892541E-06;
+    mOffset = -0.68;                // -0,68 Kessel fix
     break;
-  case SensorType::wpb1000k2: // wpb1000k2	 
-    Rn = 997.10;	 
-    a = 3.3538783e-03;	 
-    b = 2.2597408e-04;	 
-    c = 2.9243082e-06;
+  case SensorType::wpb1M33:   // 
+    Rn = 995.200;	 
+    a = 3.3549731E-03;	 
+    b = 2.2569356E-04;	 
+    c =2.8392429E-06;
+    mOffset = -0.8 + 0.3 + 0.9;                 // -0,8 Kessel fix
     break;
-  case SensorType::wpb1000k3: // wpb1000k3	 
-    Rn = 995.10;	 
-    a = 3.3541300e-03;	 
-    b = 2.2550075e-04;	 
-    c = 2.8085570e-06;
+  case SensorType::wpb1M38:   // TopDampf 40mm ET 
+    Rn = 996.000	;	 
+    a = 3.3539243E-03;	 
+    b = 2.2503760E-04;	 
+    c = 2.6735522E-06;
+    mOffset = -0.8 +0.5+ 1.0;             // -0,8 Kessel fix
     break;
-  case SensorType::wpb1000k4: // wpb1000k4	 
-    Rn = 	1001.40;	 
-    a = 3.3542862e-03;	 
-    b = 2.2603688e-04;	 
-    c = 2.8923670e-06;
+  case SensorType::wpb1M42:   // 
+    Rn = 	995.100;	 
+    a = 3.3539366E-03;	 
+    b = 2.2483282E-04;	 
+    c = 2.6320875E-06;
+    mOffset = 0.42 -1.5;           //0,42 Dampf fix
     break;
-  case SensorType::wpb1000k5: // wpb1000k5	 
-    Rn = 	997.66;	 
-    a = 3.3541437e-03;	 
-    b = 2.2575414e-04;	 
-    c = 2.8246909e-06;
+  case SensorType::wpb1M44:   //  
+    Rn = 	997.300;	 
+    a = 3.3543503E-03;	 
+    b = 2.2500659E-04;	 
+    c = 2.7100574E-06;
+    mOffset = 0.54 -1.7;            // +0,54 Dampf fix
     break;
-  case SensorType::wpb1000k6: // wpb1000k6	 
-    Rn = 	1002.00;	 
-    a = 3.3540545e-03;	 
-    b = 2.2498550e-04;	 
-    c = 2.7423803e-06;
+  case SensorType::wpb1M45:   // Kessel 2	 
+    Rn = 	993.000;	 
+    a = 3.3541843E-03;	 
+    b = 2.2528738E-04;	 
+    c = 2.6969023E-06;
+    mOffset = +0.65;         // +0,65 Dampf fix
     break;
-  case SensorType::wpb1000k0: // wpb1000k0	 Mittelwert
-    Rn = 	999.31;	 
-    a = 3.3540932e-03;	 
-    b = 2.2554712e-04;	 
-    c = 2.8203725e-06;
+  case SensorType::wpb1M01: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = + 1.18 ;       // +1,18 DAmpf fix
     break;
-  case SensorType::NTC100K6A1B: // NTC 100K6A1B (lila Kopf)
-    Rn = 100;
-    a = 0.00335639;
-    b = 0.000241116;
-    c = 0.00000243362;
+  case SensorType::wpb1M02: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.1-1.2;         // 1,1 DAmpf fix
     break;
-  case SensorType::Weber6743: // Weber_6743
-    Rn = 102.315;
-    a = 3.3558796e-03;
-    b = 2.7111149e-04;
-    c = 3.1838428e-06;
+  case SensorType::wpb1M03: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.3 -1.5;        // +1,3 DAmpf fix
     break;
-  case SensorType::Santos: // Santos
-    Rn = 200.82;
-    a = 3.3561093e-03;
-    b = 2.3552814e-04;
-    c = 2.1375541e-06;
+  case SensorType::wpb1M04: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = -0.115 +0.8 +1.1 ;             //-0,115 DAmpf fix
     break;
-  case SensorType::NTC5K3A1B: // NTC 5K3A1B (orange Kopf)
-    Rn = 5;
-    a = 0.0033555;
-    b = 0.0002570;
-    c = 0.00000243;
+  case SensorType::wpb1M05: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = -0.246 + 1.4 +0.2;              //-0,246 DAmpf fix
     break;
-  case SensorType::ThermoWorks: // ThermoWorks
-    Rn = 97.31;
-    a = 3.3556417e-03;
-    b = 2.5191450e-04;
-    c = 2.3606960e-06;
+  case SensorType::wpb1M06: // Maverik
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = -0,31;          //  -0,31 DAmpf fix
     break;
   default:
     return INACTIVEVALUE;
@@ -468,7 +481,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
 
   float Rt = Rmess * ((4096.0 / (4096 - rawValue)) - 1);
   float v = log(Rt / Rn);
-  float erg = (1 / (a + b * v + c * v * v)) - 273.15;
+  float erg = ((1 / (a + b * v + c * v * v)) - 273.15) * (1+ mOffset/100.0); // 
 
   return (erg > LOWEST_VALUE) ? erg : INACTIVEVALUE;
 }
@@ -483,9 +496,9 @@ float TemperatureBase::calcTemperaturePTx(uint16_t rawValue, SensorType type)
   switch (type)
   {
   case SensorType::PT100: // PT100
-    Rpt = 0.1;
-    Rmess = 0.0998;
-    break;
+  Rpt = 0.1;
+  Rmess = 0.0998;
+  break;
 
   case SensorType::PT1000: // PT1000
     Rpt = 1.0;

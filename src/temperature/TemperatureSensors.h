@@ -20,26 +20,26 @@
 #pragma once
 
 #include "Arduino.h"
-
 #define NUM_OF_TYPES 18u
+
 
 enum class SensorType
 {
   Maverick = 0,
-  wpb1000k1 = 1,
-  wpb1000k2 = 2,
-  wpb1000k3 = 3,
-  wpb1000k4 = 4,
-  wpb1000k5 = 5,
-  wpb1000k6 = 6,
-  wpb1000k0 = 7,
-  NTC100K6A1B = 8,
-  Weber6743 = 9,
-  Santos = 10,
-  NTC5K3A1B = 11,
+  wpb1M31 = 1,
+  wpb1M33 = 2,
+  wpb1M38 = 3,
+  wpb1M42 = 4,
+  wpb1M44 = 5,
+  wpb1M45 = 6,
+  wpb1M01 = 7,
+  wpb1M02 = 8,
+  wpb1M03 = 9,
+  wpb1M04 = 10,
+  wpb1M05 = 11,
   PT100 = 12,
   PT1000 = 13,
-  ThermoWorks = 14,
+  wpb1M06 = 14,
   TypeK = 15,
   Ble = 16,
   MaverickRadio = 17
@@ -54,20 +54,20 @@ typedef struct
 
 const SensorTypeInfoType sensorTypeInfo[NUM_OF_TYPES] = {
     {SensorType::Maverick, "1000K/Maverick", false},
-    {SensorType::wpb1000k1, "wpb1000k1", false},
-    {SensorType::wpb1000k2, "wpb1000k2", false},
-    {SensorType::wpb1000k3, "wpb1000k3", false},
-    {SensorType::wpb1000k4, "wpb1000k4", false},
-    {SensorType::wpb1000k5, "wpb1000k5", false},
-    {SensorType::wpb1000k6, "wpb1000k6", false},
-    {SensorType::wpb1000k0, "wpb1000k0", false},
-    {SensorType::NTC100K6A1B, "100K6A1B", false},
-    {SensorType::Weber6743, "Weber_6743", false},
-    {SensorType::Santos, "Santos", false},
-    {SensorType::NTC5K3A1B, "5K3A1B", false},
+    {SensorType::wpb1M31, "wpb1M31", false},
+    {SensorType::wpb1M33, "wpb1M33", false},
+    {SensorType::wpb1M38, "wpb1M38", false},
+    {SensorType::wpb1M42, "wpb1M42", false},
+    {SensorType::wpb1M44, "wpb1M44", false},
+    {SensorType::wpb1M45, "wpb1M45", false},
+    {SensorType::wpb1M01, "wpb1M01", false},
+    {SensorType::wpb1M02, "wpb1M02", false},
+    {SensorType::wpb1M03, "wpb1M03", false},
+    {SensorType::wpb1M04, "wpb1M04", false},
+    {SensorType::wpb1M05, "wpb1M05", false},
     {SensorType::PT100, "PT100", false},
     {SensorType::PT1000, "PT1000", false},
-    {SensorType::ThermoWorks, "ThermoWorks", false},
+    {SensorType::wpb1M06, "wpb1M06", false},
     {SensorType::TypeK, "Typ K", true},
     {SensorType::Ble, "Bluetooth", true},
     {SensorType::MaverickRadio, "Maverick", true}};
