@@ -1,0 +1,230 @@
+
+Public Increment As Single
+Option Explicit
+
+Private Sub UserForm_Initialize()
+Increment = 1
+On Error GoTo er101
+Application.EnableEvents = False
+Xmin.Value = ActiveChart.Axes(xlCategory).MinimumScale
+Xmax.Value = ActiveChart.Axes(xlCategory).MaximumScale
+Ymin.Value = ActiveChart.Axes(xlValue).MinimumScale
+Ymax.Value = ActiveChart.Axes(xlValue).MaximumScale
+XUnit.Value = ActiveChart.Axes(xlCategory).MajorUnit
+YUnit.Value = ActiveChart.Axes(xlValue).MajorUnit
+er101:
+Application.EnableEvents = True
+End Sub
+
+Private Sub CommandButton3_Click()
+'Zoom +
+On Error GoTo err50
+Application.ScreenUpdating = False
+Sheets("Polygon").ChartObjects("Diag").Activate
+ActiveChart.Axes(xlCategory).MinimumScale = ActiveChart.Axes(xlCategory).MinimumScale + Increment
+ActiveChart.Axes(xlCategory).MaximumScale = ActiveChart.Axes(xlCategory).MaximumScale - Increment
+ActiveChart.Axes(xlValue).MinimumScale = ActiveChart.Axes(xlValue).MinimumScale + Increment
+ActiveChart.Axes(xlValue).MaximumScale = ActiveChart.Axes(xlValue).MaximumScale - Increment
+SetMinMaxDisplay
+err50:
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub CommandButton4_Click()
+'Zoom -
+On Error GoTo err51
+Application.ScreenUpdating = False
+Sheets("Polygon").ChartObjects("Diag").Activate
+ActiveChart.Axes(xlCategory).MinimumScale = ActiveChart.Axes(xlCategory).MinimumScale - Increment
+ActiveChart.Axes(xlCategory).MaximumScale = ActiveChart.Axes(xlCategory).MaximumScale + Increment
+ActiveChart.Axes(xlValue).MinimumScale = ActiveChart.Axes(xlValue).MinimumScale - Increment
+ActiveChart.Axes(xlValue).MaximumScale = ActiveChart.Axes(xlValue).MaximumScale + Increment
+SetMinMaxDisplay
+err51:
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub CommandButton5_Click()
+'Move left
+On Error GoTo err52
+Sheets("Polygon").ChartObjects("Diag").Activate
+Application.ScreenUpdating = False
+ActiveChart.Axes(xlCategory).MinimumScale = ActiveChart.Axes(xlCategory).MinimumScale + Increment
+ActiveChart.Axes(xlCategory).MaximumScale = ActiveChart.Axes(xlCategory).MaximumScale + Increment
+SetMinMaxDisplay
+err52:
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub CommandButton6_Click()
+'Move Up
+On Error GoTo err53
+Sheets("Polygon").ChartObjects("Diag").Activate
+Application.ScreenUpdating = False
+ActiveChart.Axes(xlValue).MinimumScale = ActiveChart.Axes(xlValue).MinimumScale - Increment
+ActiveChart.Axes(xlValue).MaximumScale = ActiveChart.Axes(xlValue).MaximumScale - Increment
+err53:
+SetMinMaxDisplay
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub CommandButton7_Click()
+' Move right
+On Error GoTo err54
+Sheets("Polygon").ChartObjects("Diag").Activate
+Application.ScreenUpdating = False
+ActiveChart.Axes(xlCategory).MinimumScale = ActiveChart.Axes(xlCategory).MinimumScale - Increment
+ActiveChart.Axes(xlCategory).MaximumScale = ActiveChart.Axes(xlCategory).MaximumScale - Increment
+err54:
+SetMinMaxDisplay
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub CommandButton8_Click()
+'Move Down
+On Error GoTo err55
+Application.ScreenUpdating = False
+Sheets("Polygon").ChartObjects("Diag").Activate
+ActiveChart.Axes(xlValue).MinimumScale = ActiveChart.Axes(xlValue).MinimumScale + Increment
+ActiveChart.Axes(xlValue).MaximumScale = ActiveChart.Axes(xlValue).MaximumScale + Increment
+SetMinMaxDisplay
+err55:
+Application.ScreenUpdating = True
+End Sub
+
+Private Sub SpinButton1_SpinUp()
+If Increment < 3 Then
+    Increment = Increment + 0.01
+Else
+    Increment = 3
+End If
+Label4.Caption = Round(Increment, 2)
+End Sub
+
+Private Sub SpinButton1_SpinDown()
+If Increment >= 0.02 Then
+    Increment = Increment - 0.01
+Else
+    Increment = 0.1
+End If
+Label4.Caption = Round(Increment, 2)
+End Sub
+
+Private Sub CommandButton1_Click()
+Unload Me
+End Sub
+
+Private Sub CommandButton2_Click()
+' Zoom to full extend
+On Error GoTo err56
+Application.ScreenUpdating = False
+Sheets("Polygon").ChartObjects("Diag").Activate
+With ActiveChart.Axes(xlCategory)
+    .MinimumScale = 0
+    .MaximumScale = 12
+    .MinorUnit = 0.1
+    .MajorUnit = 1
+    .Crosses = xlCustom
+    .CrossesAt = 0
+End With
+    With ActiveChart.Axes(xlValue)
+    .MinimumScale = 0
+    .MaximumScale = 13
+    .MinorUnit = 0.1
+    .MajorUnit = 1
+    .Crosses = xlCustom
+    .CrossesAt = 0
+End With
+
+SetMinMaxDisplay
+err56:
+Application.ScreenUpdating = True
+End Sub
+
+Sub SetMinMaxDisplay()
+Xmin.Value = Round(ActiveChart.Axes(xlCategory).MinimumScale, 2)
+Xmax.Value = Round(ActiveChart.Axes(xlCategory).MaximumScale, 2)
+Ymin.Value = Round(ActiveChart.Axes(xlValue).MinimumScale, 2)
+Ymax.Value = Round(ActiveChart.Axes(xlValue).MaximumScale, 2)
+
+XUnit.Value = ActiveChart.Axes(xlCategory).MajorUnit
+YUnit.Value = ActiveChart.Axes(xlValue).MajorUnit
+End Sub
+
+
+Private Sub Xmin_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+Private Sub Ymin_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+Private Sub Xmax_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+Private Sub Ymax_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+Private Sub XUnit_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+Private Sub YUnit_KeyPress(ByVal Taste As MSForms.ReturnInteger)
+    Select Case Taste
+        Case 48 To 57
+        Case Else
+            Beep
+            Taste = 0
+    End Select
+End Sub
+
+
+Private Sub Xmin_Change()
+If Xmin.Value = "" Then Xmin.Value = ActiveChart.Axes(xlCategory).MinimumScale
+ActiveChart.Axes(xlCategory).MinimumScale = CSng(Xmin.Value)
+End Sub
+Private Sub Ymin_Change()
+If Ymin.Value = "" Then Ymin.Value = ActiveChart.Axes(xlValue).MinimumScale
+ActiveChart.Axes(xlValue).MinimumScale = CSng(Ymin.Value)
+End Sub
+Private Sub Xmax_Change()
+If Xmax.Value = "" Then Xmax.Value = ActiveChart.Axes(xlCategory).MaximumScale
+ActiveChart.Axes(xlCategory).MaximumScale = CSng(Xmax.Value)
+End Sub
+Private Sub Ymax_Change()
+If Ymax.Value = "" Then Ymax.Value = ActiveChart.Axes(xlValue).MaximumScale
+ActiveChart.Axes(xlValue).MaximumScale = CSng(Ymax.Value)
+End Sub
+Private Sub XUnit_Change()
+If XUnit.Value = "" Then XUnit.Value = ActiveChart.Axes(xlCategory).MajorUnit
+ActiveChart.Axes(xlCategory).MajorUnit = CSng(XUnit.Value)
+ActiveChart.Axes(xlCategory).MinorUnit = CSng(ActiveChart.Axes(xlCategory).MajorUnit / 10)
+End Sub
+Private Sub YUnit_Change()
+If YUnit.Value = "" Then YUnit.Value = ActiveChart.Axes(xlValue).MajorUnit
+ActiveChart.Axes(xlValue).MajorUnit = CSng(YUnit.Value)
+ActiveChart.Axes(xlValue).MinorUnit = CSng(ActiveChart.Axes(xlValue).MajorUnit / 10)
+End Sub 

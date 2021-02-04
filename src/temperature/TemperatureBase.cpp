@@ -36,8 +36,13 @@ TemperatureCalculation_t TemperatureBase::typeFunctions[NUM_OF_TYPES] = {
     TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
     TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
     TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperaturePTx, TemperatureBase::calcTemperaturePTx, TemperatureBase::calcTemperatureNTC,
-    NULL, NULL};
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC,
+    NULL};
 
 TemperatureBase::TemperatureBase()
 {
@@ -391,90 +396,174 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     c = 0.00000261;
     mOffset = 0.0;
     break;
-  case SensorType::wpb1M31:   // 
+  case SensorType::wpb31_K:   // 
     Rn = 998.200;
     a= 3.3544077E-03;
     b= 2.2489572E-04;  
     c= 2.6892541E-06;
-    mOffset = -0.68;                // -0,68 Kessel fix
+    mOffset =  0.22;                // 
     break;
-  case SensorType::wpb1M33:   // 
+  case SensorType::wpb33_K:   // 
     Rn = 995.200;	 
     a = 3.3549731E-03;	 
     b = 2.2569356E-04;	 
     c =2.8392429E-06;
-    mOffset = -0.8 + 0.3 + 0.9;                 // -0,8 Kessel fix
+    mOffset = 0.0;                 // 
     break;
-  case SensorType::wpb1M38:   // TopDampf 40mm ET 
+  case SensorType::wpb38_K:   //  
     Rn = 996.000	;	 
     a = 3.3539243E-03;	 
     b = 2.2503760E-04;	 
     c = 2.6735522E-06;
-    mOffset = -0.8 +0.5+ 1.0;             // -0,8 Kessel fix
+    mOffset = +0.03;             // 
     break;
-  case SensorType::wpb1M42:   // 
+  case SensorType::wpb42_K:   // 
     Rn = 	995.100;	 
     a = 3.3539366E-03;	 
     b = 2.2483282E-04;	 
     c = 2.6320875E-06;
-    mOffset = 0.42 -1.5;           //0,42 Dampf fix
+    mOffset = 0.17 ;           //
     break;
-  case SensorType::wpb1M44:   //  
+  case SensorType::wpb44_K:   //  
     Rn = 	997.300;	 
     a = 3.3543503E-03;	 
     b = 2.2500659E-04;	 
     c = 2.7100574E-06;
-    mOffset = 0.54 -1.7;            // +0,54 Dampf fix
+    mOffset = 0.0 ;            //
     break;
-  case SensorType::wpb1M45:   // Kessel 2	 
+  case SensorType::wpb45_K:   //  
     Rn = 	993.000;	 
     a = 3.3541843E-03;	 
     b = 2.2528738E-04;	 
     c = 2.6969023E-06;
-    mOffset = +0.65;         // +0,65 Dampf fix
+    mOffset = +0.28;         //
     break;
-  case SensorType::wpb1M01: // Maverik
+  case SensorType::wpb01_K: //
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = + 1.18 ;       // +1,18 DAmpf fix
+    mOffset = + 0.77;       // 
     break;
-  case SensorType::wpb1M02: // Maverik
+  case SensorType::wpb02_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.1-1.2;         // 1,1 DAmpf fix
+    mOffset = 0.85;         // 
     break;
-  case SensorType::wpb1M03: // Maverik
+  case SensorType::wpb03_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.3 -1.5;        // +1,3 DAmpf fix
+    mOffset = 0.75;        // 
     break;
-  case SensorType::wpb1M04: // Maverik
+  case SensorType::wpb04_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = -0.115 +0.8 +1.1 ;             //-0,115 DAmpf fix
+    mOffset = 1.1;             //
     break;
-  case SensorType::wpb1M05: // Maverik
+  case SensorType::wpb05_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = -0.246 + 1.4 +0.2;              //-0,246 DAmpf fix
+    mOffset = 0.89;              //
     break;
-  case SensorType::wpb1M06: // Maverik
+  case SensorType::wpb06_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = -0,31;          //  -0,31 DAmpf fix
+    mOffset = 0.68;          //  
+    break; 
+  case SensorType::wpb31_D:   // 
+    Rn = 998.200;
+    a= 3.3544077E-03;
+    b= 2.2489572E-04;  
+    c= 2.6892541E-06;
+    mOffset =  0.97;                // 
     break;
+  case SensorType::wpb33_D:   // 
+    Rn = 995.200;	 
+    a = 3.3549731E-03;	 
+    b = 2.2569356E-04;	 
+    c =2.8392429E-06;
+    mOffset = 0.3;                 // 
+    break;
+  case SensorType::wpb38_D:   // 
+    Rn = 996.000	;	 
+    a = 3.3539243E-03;	 
+    b = 2.2503760E-04;	 
+    c = 2.6735522E-06;
+    mOffset = +0.43;             // 
+    break;
+  case SensorType::wpb42_D:   // 
+    Rn = 	995.100;	 
+    a = 3.3539366E-03;	 
+    b = 2.2483282E-04;	 
+    c = 2.6320875E-06;
+    mOffset = 0.07 ;           //
+    break;
+  case SensorType::wpb44_D:   //  
+    Rn = 	997.300;	 
+    a = 3.3543503E-03;	 
+    b = 2.2500659E-04;	 
+    c = 2.7100574E-06;
+    mOffset = 0.3 ;            // 
+    break;
+  case SensorType::wpb45_D:   //  
+    Rn = 	993.000;	 
+    a = 3.3541843E-03;	 
+    b = 2.2528738E-04;	 
+    c = 2.6969023E-06;
+    mOffset = +0.25;         // 
+    break;
+  case SensorType::wpb01_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = + 1.07;       // 
+    break;
+  case SensorType::wpb02_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.15;         // 
+    break;
+  case SensorType::wpb03_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.15;        // 
+    break;
+  case SensorType::wpb04_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.65;             //
+    break;
+  case SensorType::wpb05_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 1.2;              //
+    break;
+  case SensorType::wpb06_D: // 
+    Rn = 1000;
+    a = 0.003358;
+    b = 0.0002242;
+    c = 0.00000261;
+    mOffset = 0.82;          //  
+    break;  
   default:
     return INACTIVEVALUE;
   }
