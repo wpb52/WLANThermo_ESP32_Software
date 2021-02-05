@@ -379,14 +379,14 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
 {
 
   float Rmess = 47;
-  float a, b, c, Rn, mOffset;
+  float a, b, c, Rn, mOff_64, mOff_100;
 
   // kleine Abweichungen an GND verursachen Messfehler von wenigen Digitalwerten
   // daher werden nur Messungen mit einem Digitalwert von mind. 10 ausgewertet,
   // das entspricht 5 mV
   if (rawValue < 10)
     return INACTIVEVALUE; // Kanal ist mit GND gebrückt
-  // wpb: mOffset eingeführt, um geringe Eintauchtiefe des Sensors auszugleichen
+  // wpb: mOff_64 ... mOff_100 eingeführt, um geringe Eintauchtiefe des Sensors auszugleichen
   switch (type)
   {
   case SensorType::Maverick: // Maverik
@@ -394,175 +394,200 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.0;
+    mOff_64 = 0.0;   // 
+    mOff_100 = 0.0;
     break;
   case SensorType::wpb31_K:   // 
     Rn = 998.200;
     a= 3.3544077E-03;
     b= 2.2489572E-04;  
     c= 2.6892541E-06;
-    mOffset =  0.22;                // 
+    mOff_64 =  0.24;  // 
+    mOff_100 =  0.22;                // 
     break;
   case SensorType::wpb33_K:   // 
     Rn = 995.200;	 
     a = 3.3549731E-03;	 
     b = 2.2569356E-04;	 
     c =2.8392429E-06;
-    mOffset = 0.0;                 // 
+    mOff_64 =  0.23;  // 
+    mOff_100 = 0.0;                 // 
     break;
   case SensorType::wpb38_K:   //  
     Rn = 996.000	;	 
     a = 3.3539243E-03;	 
     b = 2.2503760E-04;	 
     c = 2.6735522E-06;
-    mOffset = +0.03;             // 
+    mOff_64 =  0.27;  // 
+    mOff_100 = +0.03;             // 
     break;
   case SensorType::wpb42_K:   // 
     Rn = 	995.100;	 
     a = 3.3539366E-03;	 
     b = 2.2483282E-04;	 
     c = 2.6320875E-06;
-    mOffset = 0.17 ;           //
+    mOff_64 =  0.2;  // 
+    mOff_100 = 0.17;           //
     break;
   case SensorType::wpb44_K:   //  
     Rn = 	997.300;	 
     a = 3.3543503E-03;	 
     b = 2.2500659E-04;	 
     c = 2.7100574E-06;
-    mOffset = 0.0 ;            //
+    mOff_64 = 0.2;   // 
+    mOff_100 = 0.0;            //
     break;
   case SensorType::wpb45_K:   //  
     Rn = 	993.000;	 
     a = 3.3541843E-03;	 
     b = 2.2528738E-04;	 
     c = 2.6969023E-06;
-    mOffset = +0.28;         //
+    mOff_64 = 0.20;   // 
+    mOff_100 = +0.28;         //
     break;
   case SensorType::wpb01_K: //
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = + 0.77;       // 
+    mOff_64 = 0.3;   // 
+    mOff_100 = + 0.77;       // 
     break;
   case SensorType::wpb02_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.85;         // 
+    mOff_64 = 0.27;    // 
+    mOff_100 = 0.85;         // 
     break;
   case SensorType::wpb03_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.75;        // 
+    mOff_64 =  0.2;   // 
+    mOff_100 = 0.75;        // 
     break;
   case SensorType::wpb04_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.1;             //
+    mOff_64 = 0.37;    // 
+    mOff_100 = 1.1;             //
     break;
   case SensorType::wpb05_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.89;              //
+    mOff_64 = 0.3;    // 
+    mOff_100 = 0.89;              //
     break;
   case SensorType::wpb06_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.68;          //  
+    mOff_64 = 0.3;    // 
+    mOff_100 = 0.68;          //  
     break; 
   case SensorType::wpb31_D:   // 
     Rn = 998.200;
     a= 3.3544077E-03;
     b= 2.2489572E-04;  
     c= 2.6892541E-06;
-    mOffset =  0.97;                // 
+    mOff_64 = 0.24;    // 
+    mOff_100 =  0.97;                // 
     break;
   case SensorType::wpb33_D:   // 
     Rn = 995.200;	 
     a = 3.3549731E-03;	 
     b = 2.2569356E-04;	 
     c =2.8392429E-06;
-    mOffset = 0.3;                 // 
+    mOff_64 =  0.2;   // 
+    mOff_100 = 0.3;                 // 
     break;
   case SensorType::wpb38_D:   // 
     Rn = 996.000	;	 
     a = 3.3539243E-03;	 
     b = 2.2503760E-04;	 
     c = 2.6735522E-06;
-    mOffset = +0.43;             // 
+    mOff_64 =  0.27;   // 
+    mOff_100 = +0.43;             // 
     break;
   case SensorType::wpb42_D:   // 
     Rn = 	995.100;	 
     a = 3.3539366E-03;	 
     b = 2.2483282E-04;	 
     c = 2.6320875E-06;
-    mOffset = 0.07 ;           //
+    mOff_64 =  0.17;   // 
+    mOff_100 = 0.07 ;           //
     break;
   case SensorType::wpb44_D:   //  
     Rn = 	997.300;	 
     a = 3.3543503E-03;	 
     b = 2.2500659E-04;	 
     c = 2.7100574E-06;
-    mOffset = 0.3 ;            // 
+    mOff_64 =  0.2;   // 
+    mOff_100 = 0.3 ;            // 
     break;
   case SensorType::wpb45_D:   //  
     Rn = 	993.000;	 
     a = 3.3541843E-03;	 
     b = 2.2528738E-04;	 
     c = 2.6969023E-06;
-    mOffset = +0.25;         // 
+    mOff_64 =  0.2;   // 
+    mOff_100 = +0.25;         // 
     break;
   case SensorType::wpb01_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = + 1.07;       // 
+    mOff_64 =  0.3;  // 
+    mOff_100 = + 1.07;       // 
     break;
   case SensorType::wpb02_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.15;         // 
+    mOff_64 = 0.27;   // 
+    mOff_100 = 1.15;         // 
     break;
   case SensorType::wpb03_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.15;        // 
+    mOff_64 = 0.2;   // 
+    mOff_100 = 1.15;        // 
     break;
   case SensorType::wpb04_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.65;             //
+    mOff_64 =  0.37;  // 
+    mOff_100 = 1.65;             //
     break;
   case SensorType::wpb05_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 1.2;              //
+    mOff_64 =  0.3;  // 
+    mOff_100 = 1.2;              //
     break;
   case SensorType::wpb06_D: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOffset = 0.82;          //  
+    mOff_64 =  0.3;  // 
+    mOff_100 = 0.82;          //  
     break;  
   default:
     return INACTIVEVALUE;
@@ -570,7 +595,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
 
   float Rt = Rmess * ((4096.0 / (4096 - rawValue)) - 1);
   float v = log(Rt / Rn);
-  float erg = ((1 / (a + b * v + c * v * v)) - 273.15) * (1+ mOffset/100.0); // 
+  float erg = ((1 / (a + b * v + c * v * v)) - 273.15) * (1+ mOff_100/100.0 - mOff_64/35.0)+100.0/35.0*mOff_64; // 
 
   return (erg > LOWEST_VALUE) ? erg : INACTIVEVALUE;
 }
