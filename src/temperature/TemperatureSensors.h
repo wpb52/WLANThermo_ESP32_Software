@@ -49,8 +49,8 @@ enum class SensorType
   wpb03_D = 21,
   wpb04_D = 22,
   wpb05_D = 23,
-  wpb06_D =24,
-  w100k6A = 25,
+  wpb06_D =24,       // Ende der privaten Sensordefinitionen
+  w100k6A = 25,      // ab hier nicht einfach zu ändernde Definitionen
   w_200K =26,
   IGrill2 = 27,
   Ble = 28,
