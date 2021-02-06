@@ -450,7 +450,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 = 0.3;   // 
+    mOff_64 = 0.4;   // 
     mOff_100 = + 0.77;       // 
     break;
   case SensorType::wpb02_K: // 
@@ -458,15 +458,15 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 = 0.27;    // 
-    mOff_100 = 0.85;         // 
+    mOff_64 = 0.3;    // 
+    mOff_100 = 0.95;         // 
     break;
   case SensorType::wpb03_K: // 
     Rn = 1000;
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 =  0.2;   // 
+    mOff_64 =  0.38;   // 
     mOff_100 = 0.75;        // 
     break;
   case SensorType::wpb04_K: // 
@@ -474,7 +474,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 = 0.37;    // 
+    mOff_64 = 0.44;    // 
     mOff_100 = 1.1;             //
     break;
   case SensorType::wpb05_K: // 
@@ -490,7 +490,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 = 0.3;    // 
+    mOff_64 = 0.41;    // 
     mOff_100 = 0.68;          //  
     break; 
   case SensorType::wpb31_D:   // 
@@ -498,7 +498,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a= 3.3544077E-03;
     b= 2.2489572E-04;  
     c= 2.6892541E-06;
-    mOff_64 = 0.24;    // 
+    mOff_64 = 0.04;    // 
     mOff_100 =  0.97;                // 
     break;
   case SensorType::wpb33_D:   // 
@@ -514,7 +514,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 3.3539243E-03;	 
     b = 2.2503760E-04;	 
     c = 2.6735522E-06;
-    mOff_64 =  0.27;   // 
+    mOff_64 =  0.17;   // 
     mOff_100 = +0.43;             // 
     break;
   case SensorType::wpb42_D:   // 
@@ -522,7 +522,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 3.3539366E-03;	 
     b = 2.2483282E-04;	 
     c = 2.6320875E-06;
-    mOff_64 =  0.17;   // 
+    mOff_64 =  0.37;   // 
     mOff_100 = 0.07 ;           //
     break;
   case SensorType::wpb44_D:   //  
@@ -530,7 +530,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 3.3543503E-03;	 
     b = 2.2500659E-04;	 
     c = 2.7100574E-06;
-    mOff_64 =  0.2;   // 
+    mOff_64 =  0.24;   // 
     mOff_100 = 0.3 ;            // 
     break;
   case SensorType::wpb45_D:   //  
@@ -538,7 +538,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 3.3541843E-03;	 
     b = 2.2528738E-04;	 
     c = 2.6969023E-06;
-    mOff_64 =  0.2;   // 
+    mOff_64 =  0.38;   // 
     mOff_100 = +0.25;         // 
     break;
   case SensorType::wpb01_D: // 
