@@ -30,18 +30,26 @@
 #define MEDIAN_SIZE 9u
 #define DEFAULT_CHANNEL_NAME "Kanal "
 
+
+
+
+
+
 const static String colors[MAX_COLORS] = {"#0C4C88", "#22B14C", "#EF562D", "#FFC100", "#A349A4", "#804000", "#5587A2", "#5C7148"};
 TemperatureCalculation_t TemperatureBase::typeFunctions[NUM_OF_TYPES] = {
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
-    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
     TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureHPa, TemperatureBase::calcTemperatureHPa, TemperatureBase::calcTemperatureHPa,  
+    TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC, TemperatureBase::calcTemperatureNTC,
+    TemperatureBase::calcTemperatureNTC, 
     NULL};
 
 TemperatureBase::TemperatureBase()
@@ -450,7 +458,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     a = 0.003358;
     b = 0.0002242;
     c = 0.00000261;
-    mOff_64 = 0.4;   // 
+    mOff_64 = 0.4 ;   // 
     mOff_100 = + 0.77;       // 
     break;
   case SensorType::wpb02_K: // 
@@ -467,7 +475,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 =  0.38;   // 
-    mOff_100 = 0.75;        // 
+    mOff_100 = 0.75 -0.03;        // 
     break;
   case SensorType::wpb04_K: // 
     Rn = 1000;
@@ -475,7 +483,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 = 0.44;    // 
-    mOff_100 = 1.1;             //
+    mOff_100 = 1.1 +0.1;             //
     break;
   case SensorType::wpb05_K: // 
     Rn = 1000;
@@ -483,7 +491,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 = 0.3;    // 
-    mOff_100 = 0.89;              //
+    mOff_100 = 0.89 -0.03;              //
     break;
   case SensorType::wpb06_K: // 
     Rn = 1000;
@@ -491,7 +499,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 = 0.41;    // 
-    mOff_100 = 0.68;          //  
+    mOff_100 = 0.68 -0.03;          //  
     break; 
   case SensorType::wpb31_D:   // 
     Rn = 998.200;
@@ -499,7 +507,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b= 2.2489572E-04;  
     c= 2.6892541E-06;
     mOff_64 = 0.04;    // 
-    mOff_100 =  0.97;                // 
+    mOff_100 =  0.97 - 0.2;                // 
     break;
   case SensorType::wpb33_D:   // 
     Rn = 995.200;	 
@@ -507,7 +515,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 2.2569356E-04;	 
     c =2.8392429E-06;
     mOff_64 =  0.2;   // 
-    mOff_100 = 0.3;                 // 
+    mOff_100 = 0.3 -0.06;                 // 
     break;
   case SensorType::wpb38_D:   // 
     Rn = 996.000	;	 
@@ -515,7 +523,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 2.2503760E-04;	 
     c = 2.6735522E-06;
     mOff_64 =  0.17;   // 
-    mOff_100 = +0.43;             // 
+    mOff_100 = +0.43 -0.17;             // 
     break;
   case SensorType::wpb42_D:   // 
     Rn = 	995.100;	 
@@ -523,7 +531,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 2.2483282E-04;	 
     c = 2.6320875E-06;
     mOff_64 =  0.37;   // 
-    mOff_100 = 0.07 ;           //
+    mOff_100 = 0.07 +0.13 ;           //
     break;
   case SensorType::wpb44_D:   //  
     Rn = 	997.300;	 
@@ -531,7 +539,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 2.2500659E-04;	 
     c = 2.7100574E-06;
     mOff_64 =  0.24;   // 
-    mOff_100 = 0.3 ;            // 
+    mOff_100 = 0.3 + 0,03;            // 
     break;
   case SensorType::wpb45_D:   //  
     Rn = 	993.000;	 
@@ -539,7 +547,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 2.2528738E-04;	 
     c = 2.6969023E-06;
     mOff_64 =  0.38;   // 
-    mOff_100 = +0.25;         // 
+    mOff_100 = +0.25 +0.06;         // 
     break;
   case SensorType::wpb01_D: // 
     Rn = 1000;
@@ -547,7 +555,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 =  0.3;  // 
-    mOff_100 = + 1.07;       // 
+    mOff_100 = + 1.07 +0.06;       // 
     break;
   case SensorType::wpb02_D: // 
     Rn = 1000;
@@ -555,7 +563,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 = 0.27;   // 
-    mOff_100 = 1.15;         // 
+    mOff_100 = 1.15 + 0.03;         // 
     break;
   case SensorType::wpb03_D: // 
     Rn = 1000;
@@ -563,7 +571,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 = 0.2;   // 
-    mOff_100 = 1.15;        // 
+    mOff_100 = 1.15 + 0.06;        // 
     break;
   case SensorType::wpb04_D: // 
     Rn = 1000;
@@ -571,7 +579,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 =  0.37;  // 
-    mOff_100 = 1.65;             //
+    mOff_100 = 1.65 ;             //
     break;
   case SensorType::wpb05_D: // 
     Rn = 1000;
@@ -579,7 +587,7 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     b = 0.0002242;
     c = 0.00000261;
     mOff_64 =  0.3;  // 
-    mOff_100 = 1.2;              //
+    mOff_100 = 1.2 + 0.06;              //
     break;
   case SensorType::wpb06_D: // 
     Rn = 1000;
@@ -589,6 +597,24 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
     mOff_64 =  0.3;  // 
     mOff_100 = 0.82;          //  
     break;  
+    case SensorType::w100k6A: // 
+    Rn = 100;
+    a = 3.3544846e-03;
+    b = 2.4144443e-04;
+    c = 2.6788747e-06;
+    break;
+    case SensorType::w_200K:  // 200K/Dummy
+    Rn = 200.0;
+    a = 3.3525233e-03;
+    b = 2.5293916e-04;
+    c = 2.7388783e-06;
+    break;
+    case SensorType::IGrill2: // 100K/iGrill2
+    Rn = 100.075;
+    a = 3.3525233e-03;
+    b = 2.5293916e-04;
+    c = 2.7388783e-06;
+    break;
   default:
     return INACTIVEVALUE;
   }
@@ -598,6 +624,38 @@ float TemperatureBase::calcTemperatureNTC(uint16_t rawValue, SensorType type)
   float erg = ((1 / (a + b * v + c * v * v)) - 273.15) * (1+ mOff_100/100.0 - mOff_64/35.0)+100.0/35.0*mOff_64; // 
 
   return (erg > LOWEST_VALUE) ? erg : INACTIVEVALUE;
+}
+/*******************************************************************************
+ Dieser Block wird eingefügt, um Druckmessungen mit dem NPX 5010 auf Kanal 7 und 8 zu verarbeiten.
+********************************************************************************/
+float TemperatureBase::calcTemperatureHPa(uint16_t rawValue, SensorType type)
+{
+  float a, b, Rpt, Rmess;
+
+  if (rawValue < 10)
+    return INACTIVEVALUE; // Kanal ist mit GND gebrückt
+
+  switch (type)
+  {
+  case SensorType::Voltage: // Spannung
+  a=0.0;
+  b=2.0;
+  break;
+  case SensorType::HPa_1: // hPa-Sensor 1
+  a=0.0;
+  b=1.0;
+  break;
+  case SensorType::HPa_2: // hPa-Sensor 2
+  a=0.0;
+  b=10.0;
+  break;
+  default:
+  return INACTIVEVALUE;
+  }
+
+//float erg = (rawValue-a)/b;
+float erg = rawValue;
+return (erg > LOWEST_VALUE) ? erg : INACTIVEVALUE;
 }
 
 float TemperatureBase::calcTemperaturePTx(uint16_t rawValue, SensorType type)

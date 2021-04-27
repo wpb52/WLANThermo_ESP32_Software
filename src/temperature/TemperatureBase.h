@@ -129,4 +129,5 @@ private:
   float decimalPlace(float value);
   static float calcTemperatureNTC(uint16_t rawValue, SensorType type);
   static float calcTemperaturePTx(uint16_t rawValue, SensorType type);
+  static float calcTemperatureHPa(uint16_t rawValue, SensorType type);
 };

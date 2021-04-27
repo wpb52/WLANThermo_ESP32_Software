@@ -20,7 +20,7 @@
 #pragma once
 
 #include "Arduino.h"
-#define NUM_OF_TYPES 33u
+#define NUM_OF_TYPES 36u
 
 
 enum class SensorType
@@ -53,11 +53,15 @@ enum class SensorType
   w100k6A = 25,      // ab hier nicht einfach zu ändernde Definitionen
   w_200K =26,
   IGrill2 = 27,
-  Ble = 28,
-  MaverickRadio =29,
-  TypeK = 30,
-  PT100 = 31,
-  PT1000 =32
+  Voltage= 28,
+  HPa_1= 29,
+  HPa_2=30,  
+  Ble = 31,
+  MaverickRadio =32,
+  TypeK = 33,
+  PT100 = 34,
+  PT1000 =35,
+        // checken, ob hier oder bei 25ff
 };
 
 typedef struct
@@ -96,6 +100,10 @@ const SensorTypeInfoType sensorTypeInfo[NUM_OF_TYPES] = {
     {SensorType::w100k6A, "w100k6A", false},
     {SensorType::w_200K, "w_200K", false},
     {SensorType::IGrill2, "IGrill2", false},
+    {SensorType::Voltage, "Voltage", false},          // checken, ob die neuen Sensoren ggf. vor Bluetooth ...
+    {SensorType::HPa_1, "HPa_1", false},
+    {SensorType::HPa_2, "HPa_2", false},
     {SensorType::Ble, "Bluetooth", true},
-    {SensorType::MaverickRadio, "Maverick", true}
+    {SensorType::MaverickRadio, "Maverick", true},
+
     };

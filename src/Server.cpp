@@ -98,9 +98,9 @@ void WServer::init()
 
   webServer->on("/settestmode", [](AsyncWebServerRequest *request) {
     CloudConfig cloudConfig = gSystem->cloud.getConfig();
-    cloudConfig.interval = 3;
+    cloudConfig.interval = 1;          // wpb geändert von 3 auf 1 Sekunde
     gSystem->cloud.setConfig(cloudConfig);
-    request->send(200, TEXTPLAIN, "3 Sekunden");
+    request->send(200, TEXTPLAIN, "1 Sekunden");
   });
 
   webServer->on("/stop", [](AsyncWebServerRequest *request) {
